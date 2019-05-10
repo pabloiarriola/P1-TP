@@ -34,4 +34,4 @@ samples = np.random.normal(mu, sigma, 1000000)
 prob = len(samples[np.where(samples <= 144)]) / len(samples)
 
 
-print('robabilidad de ganarle a Secretariat:', prob)
+print('Probabilidad de ganarle a Secretariat:', prob)

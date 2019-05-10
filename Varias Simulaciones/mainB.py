@@ -12,18 +12,18 @@ Instrucciones
 '''
 import numpy as np
 
-# Seed random number generator
+# Generador random con semilla 42, para siempre tener el mismo resultado
 np.random.seed(42)
 
-# Draw 10,000 samples out of Poisson distribution: n_nohitters
+# Sacar 10,000 muestras de una distribucion de Poisson: n_nohitters
 n_nohitters = np.random.poisson((251 / 115), size=10000)
 
-# Compute number of samples that are seven or greater: n_large
+# Calcular el numero de muestras que son iguales o mayores a 7 :n_large
 n_large = np.sum(n_nohitters >= 7)
 
-# Compute probability of getting seven or more: p_large
+# Calcular la probabilidad de obtener 7 o mas: p_large
 p_large = n_large / 10000
 
 # Print the result
-print('Probability of seven or more no-hitters:', p_large)
+print('Probabilidad de siete o más no-hitters:', p_large)
 

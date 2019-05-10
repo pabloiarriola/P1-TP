@@ -1,0 +1,420 @@
+\documentclass[11pt, spanish]{article}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\usepackage{extramarks}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\renewcommand{\qedsymbol}{\rule{0.4em}{0.4em}}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+%\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ - \hmwkTitle}
+\rhead{\hmwkChapter}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problema Sections
+%
+
+\newcommand{\enterProblemaHeader}[1]{
+    \nobreak\extramarks{}{Problema \arabic{#1} continúa en la siguiente página \ldots}\nobreak{}
+    \nobreak\extramarks{Problema \arabic{#1} (continued)}{Problema \arabic{#1} continúa en la siguiente página\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemaHeader}[1]{
+    \nobreak\extramarks{Problema \arabic{#1} (continued)}{Problema \arabic{#1} continúa en la siguiente página\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problema \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemaCounter}
+\setcounter{homeworkProblemaCounter}{1}
+\nobreak\extramarks{Problema \arabic{homeworkProblemaCounter}}{}\nobreak{}
+
+\newenvironment{homeworkProblema}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemaCounter}{#1}
+    \fi
+    \section{Problema \arabic{homeworkProblemaCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemaHeader{homeworkProblemaCounter}
+}{
+    \exitProblemaHeader{homeworkProblemaCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Proyecto 1}
+\newcommand{\hmwkClass}{Teoría Probabilidades}
+\newcommand{\hmwkClassInstructor}{Profesor Paulo Mejía}
+\newcommand{\hmwkAuthorName}{\textbf{Marco Flores 16260}
+\\
+\textbf{Juan García 15046}
+\\
+\textbf{Rodrigo Leonardo 16139}}
+\newcommand{\hmwkChapter}{}
+\newcommand{\hmwkBook}{}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass}}\\
+    \textmd{\hmwkTitle}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}\\
+    \vspace{0.1in}\textmd{\hmwkBook}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblema}
+	
+	Sea $X \sim$ Poisson$(\lambda) \ $ y $\ Y\sim$ Poisson$(\mu)$ y asuma que $X$ y $Y$ son independientes. Muestre que la distribución de $X$ dado $X+Y = n$ es Binomial$(n,\pi)$ con $\pi = \frac{\lambda}{\lambda+\mu}$.
+	
+	\begin{enumerate}
+		\item[Hint 1:] Puede utilizar el siguiente hecho: Si $X \sim $ Poisson$(\lambda)$ y $Y \sim$ Poisson$(\mu)$, y $X$ y $Y$ son independientes, entonces $X+Y \sim$ Poisson$(\mu+\lambda)$. 
+		
+		\item[Hint 2:] Note que $\{ X=x, \ X+Y=n \} = \{ X=x,\ Y= n-x \}$. 
+	\end{enumerate}
+	
+	\begin{proof}
+		
+		Por definición, 
+		\[ 
+		\mathbb{P}(X=x)=f_{X}(x)= e^{-\lambda}\cdot \frac{\lambda^{x}}{x!}, \ x\geq 0 \ \ ; \ \ \mathbb{P}(Y=y)=f_{Y}(y)= e^{-\mu}\cdot \frac{\mu^{y}}{y!}, \ y\geq 0
+		\]
+		Y, por Hint 1:
+		\[
+		\mathbb{P}(X+Y=x+y)=f_{X+Y}(x+y)= e^{-(\lambda+\mu)}\cdot \frac{(\lambda+\mu)^{x+y}}{(x+y)!}, \ x+y\geq 0
+		\]
+		Ahora, por definición de la función de masa de probabilidad condicional y utilizando Hint 2:
+		\[
+		f_{X|X+Y}(x|n)=  \mathbb{P}(X=x\ |\ X+Y=n) = \frac{\mathbb{P}(X=x,X+Y=n)}{\mathbb{P}(X+Y=n)}= \frac{\mathbb{P}(X=x,Y=n-x)}{\mathbb{P}(X+Y=n)}
+		\]
+		Pero $X$ y $Y$ son independientes: 
+		\[
+		\frac{\mathbb{P}(X=x,Y=n-x)}{\mathbb{P}(X+Y=n)} = \frac{\mathbb{P}(X=x) \mathbb{P}(Y=n-x)}{\mathbb{P}(X+Y=n)} = \frac{f_{X}(x) f_{Y}(n-x)}{f_{X+Y}(n)} =
+		\]
+		\[
+		= e^{-\lambda}\cdot \frac{\lambda^{x}}{x!} \cdot e^{-\mu}\cdot \frac{\mu^{n-x}}{(n-x)!} \cdot \frac{n!}{e^{-(\lambda+\mu)}\cdot (\lambda+\mu)^{n}} = \binom{n}{x} \frac{\lambda^{x}\mu^{n-x}}{(\lambda+\mu)^{n}}= \binom{n}{x} \frac{\lambda^{x}}{(\lambda+\mu)^{x}}\frac{\mu^{n-x}}{(\lambda+\mu)^{n-x}} = 
+		\]
+		\[
+		= \binom{n}{x} \left(\frac{\lambda}{\lambda+\mu}\right)^{x} \left(\frac{\lambda + \mu -\lambda}{\lambda+\mu}\right)^{n-x}= \binom{n}{x} \left(\frac{\lambda}{\lambda+\mu}\right)^{x} \left(1-\frac{\lambda}{\lambda+\mu}\right)^{n-x} = \binom{n}{x} (\pi)^{x} (1-\pi)^{n-x}
+		\]
+		Se concluye que la distribución de $X$ dado $X+Y=n$ es Binomial$(n,\pi)$.
+		
+	\end{proof}
+	
+\end{homeworkProblema}
+
+\begin{homeworkProblema}
+	
+	Sean $X_{1},\dots, X_{n} \sim $ Exp$(\beta)$ variables aleatorias IID. Sea $Y = \max\{ X_{1},\dots, X_{n}\}$. Encuentre el PDF de $Y$. Hint: $Y\leq y$ ssi $X_{i} \leq y$ para $i= 1,\dots, n$. 
+	
+	\begin{proof}
+		
+		Por definición de Distribución Exponencial, 
+		\[
+		f_{X}(x)=\frac{1}{\beta} e^{-\frac{x}{\beta}}\ ,\ x >0,\ \beta >0
+		\]
+		Y, por definición de PDF:
+		\[
+		F_{X}(x)= \int_{-\infty}^{x} f_{X}(t)dt \ \ y \ \ F'_{X}(x)=f_{X}(x)
+		\]
+		Ahora, se encontrará el CDF para $X\sim $ Exp$(\beta)$. 
+		\[
+		\int_{0}^{x} \frac{1}{\beta} e^{-\frac{t}{\beta}} dt= \frac{1}{\beta}(-\beta) \int_{0}^{x} e^{-\frac{t}{\beta}} d(-\frac{t}{\beta})= -e^{\frac{t}{\beta}} \Biggr|_{0}^{x} = -e^{\frac{x}{\beta}} + e^{0} = 1-e^{\frac{x}{\beta}}
+		\]
+		Para el máximo y utilizando el hecho de que los $X_{i}$ son IID:
+		\[
+		F_{Y}(y)= \mathbb{P}(Y\leq y)= \mathbb{P}(\max\{ X_{1},\dots,X_{n} \} \leq y) = \mathbb{P}(\max\{ X_{1},\dots,X_{n}\} \leq y) = 
+		\]
+		\[
+		= \mathbb{P}(X_{1} \leq y, X_{2}\leq y,\dots, X_{n} \leq y)= \mathbb{P}(X_{1} \leq y)\mathbb{P}(X_{2} \leq y)\dots \mathbb{P}(X_{n} \leq y)=  \mathbb{P}(X_{n}\leq y)^{n}. 
+		\]
+		Para $\mathbb{P}(X_{n}\leq y) = 1-e^{\frac{y}{\beta}} \Rightarrow $
+		\[
+		F_{Y}(y) = (1-e^{\frac{y}{\beta}})^{n} \Rightarrow F'_{Y}(y)= f_{Y}(y) = n(1-e^{\frac{y}{\beta}})^{n-1}(-\frac{1}{\beta} e^{\frac{y}{\beta}}) = \frac{n}{\beta} e^{\frac{y}{\beta}} (e^{\frac{y}{\beta}} -1)^{n-1}
+		\]
+		
+	\end{proof}
+	
+\end{homeworkProblema}
+
+\begin{homeworkProblema}
+	
+	Encuentre la función generadora de momentum para las siguientes distribuciones: Poisson, Normal y Gamma.
+	
+	\begin{proof}
+		
+		\begin{itemize}
+			\item[$i)$] Sea $X \sim $ Poisson$(\lambda)$, entonces:
+			\[
+			f(x)= e^{-\lambda} \frac{\lambda^{x}}{x!}, \ x\geq 0 
+			\]
+			Por definición, 
+			\[
+			\psi_{X}(t)= \sum_{x=0}^{\infty} e^{tx}e^{-\lambda} \frac{\lambda^{x}}{x!} = e^{-\lambda} \sum_{x=0}^{\infty} e^{tx} \frac{\lambda^{x}}{x!} = e^{-\lambda} \sum_{x=0}^{\infty} \frac{(e^{t} \lambda)^{x}}{x!} = e^{-\lambda} e^{e^{t}\lambda}= e^{\lambda e^{t} -\lambda} = e^{\lambda(e^{t}-1)}
+			\]
+			El MGF de $X\sim$ Poisson$(\lambda)$ es 
+			\[
+			\psi_{x}(t)= e^{\lambda(e^{t}-1)}. 
+			\]
+			
+			\item[$ii)$] Sea $X \sim $ Normal$(\mu, \sigma^{2})$, entonces:
+			\[
+			f(x)=\frac{1}{\sigma \sqrt[]{2\pi}} \exp\big\{ -\frac{1}{2\sigma^{2}} (x-\mu)^{2} \big\}, \ x\in \mathbb{R}
+			\]
+			Por definición, 
+			\[
+			\psi_{x}(t) = \int_{-\infty}^{\infty} \frac{e^{tx}}{\sigma \sqrt[]{2\pi}} \exp\big\{ -\frac{1}{2\sigma^{2}} (x-\mu)^{2} \big\} dx = 
+			\]
+			\[
+			= \int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt[]{2\pi}} \exp\big\{ -\frac{1}{2\sigma^{2}} (x^{2}-2x\mu+\mu^{2}-2tx\sigma^{2}) \big\} dx = 
+			\]
+			\[
+			=\int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt[]{2\pi}} \exp\big\{ -\frac{1}{2\sigma^{2}} ([x-(\mu+t\sigma^{2})]^2-(\mu+t\sigma^{2})^2+\mu^{2}) \big\} dx =
+			\]
+			\[
+			= \exp\big\{ \frac{1}{2\sigma^{2}}((\mu+t\sigma^{2})^{2}-\mu^{2}) \big\}
+			\int_{-\infty}^{\infty} \frac{1}{\sigma \sqrt[]{2\pi}} \exp\big\{ -\frac{1}{2\sigma^{2}} (x-(\mu+t\sigma^{2}))^{2} \big\} dx 
+			\]
+			Y como la integral es la función de distribución de probabilidad para alguna \\ $Y\sim $ Normal$(\mu+t\sigma^{2}, \sigma)$, el valor de la integral es igual a 1. 
+			\[
+			\therefore \psi_{X}(t)= \exp\big\{ \frac{1}{2\sigma^{2}}((\mu+t\sigma^{2})^{2}-\mu^{2}) \big\}
+			\]
+			
+			\item[$iii)$] Sea $X \sim $ Gamma$(\alpha,\beta)$, entonces: 
+			\[
+			f(x)=\frac{1}{\beta^{\alpha} \Gamma(\alpha)} x^{\alpha-1} e^{-\frac{x}{\beta}}, \ \alpha, \beta, x >0
+			\]
+			Por definición, 
+			\[
+			\psi_{X}(t)= \int_{0}^{\infty} \frac{e^{tx}}{\beta^{\alpha}\Gamma(\alpha)} x^{\alpha -1} e^{-\frac{x}{\beta}} dx = \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha -1} e^{x(t-\frac{1}{\beta})} dx = \frac{\Gamma(\alpha)}{\beta^{\alpha} \Gamma(\alpha) (\frac{1}{\beta}-t)^{\alpha}} = 
+			\]
+			\[
+			= \frac{1}{(1-\beta t)^{\alpha}} \ \therefore \psi_{X}(t) = \frac{1}{(1-\beta t)^{\alpha}}
+			\]
+			
+		\end{itemize}
+		
+	\end{proof}
+	
+\end{homeworkProblema}
+
+\begin{homeworkProblema}
+	
+	Sean $X_{1},\dots,X_{n} \sim$ Gamma$(\alpha,\beta)$. Encuentre el estimador de métodos de momentos para $\alpha$ y $\beta$. 
+	
+	\begin{proof}
+		
+		El PDE de cada $X_{i}$ es: 
+		\[
+		f(x_{i})=\frac{1}{\beta^{\alpha} \Gamma(\alpha)} x^{\alpha-1} e^{-x/\beta}
+		\]
+		
+		El primer momento teórico es:
+		\[
+		\mathbb{E}(X_{i})=\alpha\beta
+		\]
+		Y el segundo momento teórico centrado alrededor de la media, mejor conocido como varianza, es:
+		\[
+		\mathbb{V}(X_{i})=\mathbb{E}(X_{i}-\mu)^{2}=\alpha\beta^{2}
+		\]
+		Note que
+		\begin{equation}
+		\mathbb{X}=\alpha\beta=\frac{1}{n} \sum_{i=1}^{n} X_{i}=\bar{X}
+		\end{equation} 
+		Y
+		\begin{equation}
+		\mathbb{V}(X)=\alpha\beta^{2}=\frac{1}{n} \sum_{i=1}^{n} (X_{i}-\bar{X})^{2}
+		\end{equation} 
+		Sustituyendo $\alpha=\frac{\bar{X}}{\beta}$ en la ecuación (2),
+		\begin{equation}
+		\alpha\beta^{2}=\frac{\bar{X}}{\beta}\beta^{2}=\bar{X}\beta=\frac{1}{n} \sum_{i=1}^{n} (X_{i}-\bar{X})^{2}
+		\end{equation} 
+		Resolviendo para $\beta$ en $(3)$, 
+		\[
+		\hat{\beta}_{MM}= \frac{1}{n\bar{X}} \sum_{i=1}^{n} (X_{i}-\bar{X})^{2}
+		\]
+		Sustituyendo el valor de $\beta$ en $(1)$, 
+		\[
+		\hat{\alpha}_{MM}=\frac{\bar{X}}{\hat{\beta}_{MM}}= \frac{\bar{X}}{(1/n\bar{X}) \sum_{i=1}^{n} (X_{i}-\bar{X})^{2}}= \frac{n\bar{X}^{2}}{\sum_{i=1}^{n} (X_{i}-\bar{X})^{2}}
+		\]
+		
+	\end{proof}
+	
+\end{homeworkProblema}
+
+\begin{homeworkProblema}
+	
+	Sean $X_{1},\dots,X_{n} \sim $ Uniform$(a,b)$ con $a$ y $b$ parámetros desconocidos y $a<b$. Encuentre el estimador de métodos de momentos para $a$ y $b$.
+	
+	\begin{proof}
+		
+		Note que 
+		\[
+		\mathbb{E}[X_{i}]=\frac{a+b}{2}
+		\]
+		\[
+		\mathbb{E}[X_{i}^{2}]=\mathbb{V}(X_{i})+\mathbb{E}[X_{i}]^{2} =\frac{(b-a)^{2}}{12}+\frac{(b+a)^{2}}{4}
+		\]
+		Entonces el estimador de métodos de momentos $\hat{a}_{MM}$ y $\hat{b}_{MM}$ es:
+		\[
+		\hat{a}_{MM}+\hat{b}_{MM}=2\frac{1}{n} \sum_{i=1}^{n} X_{i}=2 \bar{X}
+		\]
+		\[
+		(\hat{b}_{MM}-\hat{a}_{MM})^{2}=12 \left(  \frac{1}{n} \sum_{i=1}^{n} X_{i}^{2}-\bar{X}^{2} \right) =\frac{12}{n} \sum_{i=1}^{n}(X_{i}-\bar{X})^{2}.
+		\]
+		Entonces, 
+		\[
+		\hat{b}_{MM}=\frac{1}{2}  \left(  2\bar{X}+\sqrt{\frac{12}{n} \sum_{i=1}^{n}(X_{i}-\bar{X})^{2}} \right) =\bar{X}+\sqrt{\frac{3}{n}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}}
+		\]
+		\[
+		\hat{a}_{MM}=2\bar{X}-\hat{b}_{MM}=\bar{X}-\sqrt{\frac{3}{n} \sum_{i=1}^{n}(X_{i}-\bar{X})^{2}}
+		\]
+		
+	\end{proof}
+	
+\end{homeworkProblema}
+
+\begin{homeworkProblema}
+	
+	Comparando dos tratamientos, $n_{1}$ personas reciben el tratamiento 1 y $n_{2}$ reciben el tratamiento 2. Sean $X_{1}, X_{2}$ el número de personas que respondieron favorablemente al tratamiento 1 y 2, respectivamente. Asuma que $X_{1}\sim $ Binomial $(n_{1},p_{1})$, $X_{2}\sim$ Binomial $(n_{2},p_{2})$. Sea $\psi=p_{1}-p_{2}$.
+	
+	\begin{itemize}
+		\item[$a)$] Encuentre el MLE $\hat{\psi}$ para $\psi$.
+		\item[$b)$] Encuentre la matriz de información de Fisher $I(p_{1},p_{2})$.
+	\end{itemize}
+	
+	\begin{proof}
+		
+		Dado $\psi=p_{1}-p_{2} \Rightarrow \hat{\psi}=\hat{p_{1}}+\hat{p_{2}}$. De primero se encuentra $\hat{p_{1}}$, el MLE de $p_{1}$: 
+		\[
+		f_{1}(X_{1})= \binom{n_{1}}{X_{1}} p_{1}^{\displaystyle X_{1}}(1-p_{1})^{\displaystyle n_{1}-X_{1}} \Rightarrow \mathcal{L}_{n}(p_{1})=\binom{n_{1}}{X_{1}} p_{1}^{\displaystyle X_{1}}(1-p_{1})^{\displaystyle n_{1}-X_{1}} 
+		\]
+		Aplicando logaritmo natural de ambos lados, 
+		\[
+		l_{n}(p_{1})=\ln\binom{n_{1}}{X_{1}}+X_{1}\ln p_{1}+(n_{1}-X_{1})\ln(1-p_{1}) \Rightarrow \frac{\partial l_{n}}{\partial p_{1}}=\frac{X_{1}}{p_{1}}+\frac{n_{1}-X_{1}}{p_{1}-1}
+		\]
+		Al igualar la derivada parcial anterior a 0, se obtiene:
+		\[
+		-X_{1}+X_{1}p_{1}+p_{1}n_{1}-p_{1}X_{1}=0 \Rightarrow \hat{p_{1}}=\frac{X_{1}}{n_{1}}
+		\]
+		Repitiendo el proceso anterior para $p_{2} \Rightarrow \hat{p_{2}}=\displaystyle \frac{X_{2}}{n_{2}}$. Finalmente, $\hat{\psi}=\displaystyle \frac{X_{1}}{n_{1}}-\frac{X_{2}}{n_{2}}$.
+		
+		\medskip
+		
+		\noindent Ahora, para encontrar la matriz de información de Fisher, se introduce la siguiente notación. Sea $\theta=(p_{1},p_{2}) \Rightarrow$
+		\[
+		I_{n}(\theta)=-\begin{bmatrix}
+		\mathbb{E}_{\theta}(H_{11}) & \mathbb{E}_{\theta}(H_{12}) \\
+		\mathbb{E}_{\theta}(H_{21}) & \mathbb{E}_{\theta}(H_{22}) 
+		\end{bmatrix}, \ H_{jj}=\frac{\partial^{2} l_{n}}{\partial p_{j}^{2}} \textrm{  y  } H_{jk}=\frac{\partial^{2} l_{n}}{\partial p_{j} \partial p_{k}}, \ l_{n}=l_{n}(p_{1})+l_{n}(p_{2})
+		\]
+		\[
+		l_{n}=\ln\binom{n_{1}}{X_{1}}+X_{1}\ln p_{1}+(n_{1}-X_{1})\ln(1-p_{1})+\ln\binom{n_{2}}{X_{2}}+X_{2}\ln p_{2}+(n_{2}-X_{2})\ln(1-p_{2})
+		\]
+		Note que
+		\[
+		H_{11}=\frac{\partial}{\partial p_{1}} \left(  \frac{X_{1}}{p_{1}}+\frac{n_{1}-X_{1}}{p_{1}-1} \right)= -\frac{X_{1}}{p_{1}^{2}}+\frac{X_{1}-n_{1}}{(p_{1}-1)^{2}} \Rightarrow \mathbb{E}_{\theta}[H_{11}]=-\frac{\mathbb{E}[X_{1}]}{n_{1}}+\frac{\mathbb{E}[X_{1}-n_{1}]}{(p_{1}-1)^{2}}
+		\]
+		\[
+		\mathbb{E}_{\theta}[H_{11}]= -\frac{n_{1}p_{1}}{p_{1}}+\frac{n_{1}(p_{1}-1)}{(p_{1}-1)^{2}} = -\frac{n_{1}}{p_{1}}+\frac{n_{1}}{p_{1}-1} \Rightarrow \mathbb{E}_{\theta}[H_{22}]=-\frac{n_{2}}{p_{2}}+\frac{n_{2}}{p_{2}-1}
+		\]
+		Por otro lado 
+		\[
+		H_{12}=\frac{\partial}{\partial p_{1}}\left( \frac{X_{2}}{p_{2}}+\frac{n_{2}-X_{2}}{p_{2}-1} \right)=0 \Rightarrow H_{21}=0
+		\]
+		Finalmente
+		\[
+		I_{n}(\theta)=-\displaystyle \begin{bmatrix}
+		\displaystyle  -\frac{n_{1}}{p_{1}}+\frac{n_{1}}{p_{1}-1} & 0 \\
+		0 & \displaystyle -\frac{n_{2}}{p_{2}}+\frac{n_{2}}{p_{2}-1}
+		\end{bmatrix} = \begin{bmatrix}
+		\displaystyle  \frac{n_{1}}{p_{1}(1-p_{1})} & 0 \\
+		0 & \displaystyle \frac{n_{2}}{p_{2}(1-p_{2})}
+		\end{bmatrix}
+		\]
+		
+	\end{proof}
+	
+\end{homeworkProblema}
+
+\end{document}
